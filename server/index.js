@@ -5,12 +5,15 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { bookingSchema, contactSchema, newsletterSchema, rooms } from './schemas.js'
 import { save, notify } from './mailer.js'
+import adminRouter from './admin.js'
 
 const app = express()
+app.set('trust proxy', 1) // needed behind hosts like Render so rate limiting sees real visitor IPs
 app.use(helmet())
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json({ limit: '20kb' }))
-app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, limit: 30, standardHeaders: true, legacyHeaders: false }))
+app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, limit: 30, standardHeaders: true, legacyHeaders: false, skip: (req) => req.path.startsWith('/admin') }))
+app.use('/api/admin', adminRouter)
 
 // Wraps a route: validate -> save -> email -> respond
 const handle = (type, schema, toMail) => async (req, res) => {

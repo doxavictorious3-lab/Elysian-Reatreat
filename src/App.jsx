@@ -13,6 +13,7 @@ import Booking from './pages/Booking.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Terms from './pages/Terms.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Staff from './pages/Staff.jsx'
 export default function App() {
   return (
     <Routes>
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="booking" element={<Booking />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="terms" element={<Terms />} />
+        <Route path="staff" element={<Staff />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

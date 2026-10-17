@@ -43,3 +43,6 @@ Run the website in a second terminal (`npm run dev` in the project root). Vite p
 
 Production: deploy `server/` to a Node host, set the `.env` values there, set `CLIENT_ORIGIN` to your site address, and build the website with `VITE_API_URL=https://your-api-address`.
 Remember: keep `.env` private, update `server/schemas.js` when you change rooms, and cover stored personal data in your privacy policy.
+
+## Staff area
+Staff open `/staff` on the website (it is not linked in the menu) and sign in with `ADMIN_PASSWORD` from `server/.env`. They can filter enquiries, email guests and mark enquiries as handled. Set `ADMIN_PASSWORD` (12+ characters) and `ADMIN_TOKEN_SECRET` (`openssl rand -hex 32`), then restart the server. Sessions last 8 hours. This is a single shared password; for several staff members with their own logins, use a proper auth service.
