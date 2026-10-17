@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { rooms } from '../data/rooms.js'
 
 const today = () => new Date().toISOString().slice(0, 10)
 
@@ -16,9 +15,6 @@ export const bookingSchema = z.object({
 }).superRefine((v, ctx) => {
   if (v.checkIn && v.checkOut && v.checkOut <= v.checkIn)
     ctx.addIssue({ code: 'custom', path: ['checkOut'], message: 'Check-out must be after check-in.' })
-  const room = rooms.find((r) => r.id === v.roomId)
-  if (room && v.adults + v.children > room.maxGuests)
-    ctx.addIssue({ code: 'custom', path: ['adults'], message: `${room.name} sleeps up to ${room.maxGuests} guests.` })
 })
 
 export const contactSchema = z.object({

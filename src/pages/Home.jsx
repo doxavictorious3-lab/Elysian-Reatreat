@@ -11,7 +11,9 @@ import GalleryGrid from '../components/GalleryGrid.jsx'
 import EventPromotion from '../components/EventPromotion.jsx'
 import TestimonialCarousel from '../components/TestimonialCarousel.jsx'
 import NewsletterForm from '../components/NewsletterForm.jsx'
-import { rooms } from '../data/rooms.js'
+import useRooms from '../hooks/useRooms.js'
+import LoadingState from '../components/LoadingState.jsx'
+import ErrorMessage from '../components/ErrorMessage.jsx'
 import { experiences, facilities } from '../data/experiences.js'
 import { galleryImages } from '../data/gallery.js'
 import { testimonials } from '../data/testimonials.js'
@@ -19,6 +21,7 @@ import { site } from '../data/site.js'
 const wrap = 'mx-auto max-w-7xl px-5 py-20'
 export default function Home() {
   usePageTitle('', 'Elysian Retreat: a demo luxury resort website.')
+  const { rooms, loading, error } = useRooms()
   return (
     <>
       <HeroSection />
@@ -29,7 +32,7 @@ export default function Home() {
       </section>
       <section className={wrap}>
         <SectionHeading title="Rooms and suites" subtitle="All prices are sample pricing for demonstration." />
-        <RoomGrid rooms={rooms} />
+        {loading ? <LoadingState label="Loading rooms…" /> : error ? <ErrorMessage>We could not load the rooms. Please try again shortly.</ErrorMessage> : <RoomGrid rooms={rooms} />}
         <Button to="/rooms" variant="dark" className="mt-10">See all rooms</Button>
       </section>
       <DiningSection />

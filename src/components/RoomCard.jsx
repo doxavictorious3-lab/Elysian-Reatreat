@@ -14,7 +14,7 @@ export default function RoomCard({ room }) {
           <span className="flex items-center gap-1"><Users size={16} />Up to {room.maxGuests}</span>
           <span className="flex items-center gap-1"><BedDouble size={16} />{room.bed}</span>
         </p>
-        <p className="mt-4 font-semibold">From ${room.samplePrice} <span className="text-sm font-normal text-charcoal/60">per night (sample pricing)</span></p>
+        <p className="mt-4 font-semibold">From ${room.price} <span className="text-sm font-normal text-charcoal/60">per night (sample pricing)</span></p>
       </div>
     </article>
   )
